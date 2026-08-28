@@ -1,0 +1,42 @@
+# === 排除的文件 ===
+
+# 历史记录
+*.history
+.zsh_history
+.bash_history
+
+# Neovim 缓存
+.nvim.swap
+.nvim.backup
+.nvim.undo
+.nvim.log
+
+# 本地配置
+lua/config/local.lua
+lua/plugins/local.lua
+
+# 敏感信息
+*.local
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# 编辑器
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# 构建产物
+node_modules/
+.target/
+dist/
+build/
+*.o
+*.a

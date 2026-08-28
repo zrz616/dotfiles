@@ -1,0 +1,94 @@
+# === 现代命令行工具别名 ===
+
+# ls 替代 - eza (彩色、图标、git状态)
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -l --git --icons'
+alias la='eza -la --git --icons'
+alias lt='eza --tree --level=2 --git --icons'
+alias l.='eza -a | grep "^\."'
+
+# find 替代 - fd (更快的模糊搜索)
+alias fd='fdfind'
+
+# top 替代 - htop/btop
+alias top='btop'
+alias htop='btop'
+
+# cat 替代 - bat (语法高亮、行号)
+alias cat='bat --style=numbers,changes --wrap=never --theme=OneHalfDark'
+
+# grep 替代 - ripgrep (更快、支持默认高亮)
+alias grep='rg'
+alias fgrep='rg'
+alias egrep='rg'
+
+# du 替代 - ncdu (交互式磁盘使用分析)
+alias du='ncdu --color dark'
+
+# 常用命令增强
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+
+# git 别名
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git pull'
+alias gf='git fetch'
+alias gco='git checkout'
+alias gb='git branch'
+alias gd='git diff'
+alias gdt='git diff --staged'
+alias glog='git log --oneline --graph --decorate --all'
+alias lg='lazygit'
+
+# 进程管理
+alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
+
+# 网络
+alias ping='ping -c 5'
+alias wget='wget -c'
+
+# 安全操作
+alias rm='trash'  # 安全删除到回收站
+alias del='trash'
+
+# 目录跳转增强
+alias ~='cd ~'
+
+# 快速打开配置
+alias zshconfig='${EDITOR:-nano} ~/.zshrc'
+alias aliasconfig='${EDITOR:-nano} ~/.aliases'
+alias envconfig='${EDITOR:-nano} ~/.zshenv'
+
+# 系统信息
+alias ports='ss -tulanp'
+alias df='df -h | grep -v tmpfs'
+alias free='free -h'
+
+# 更新
+alias update='sudo apt update && sudo apt upgrade -y'
+alias cleanup='sudo apt autoremove && sudo apt autoclean'
+
+# Docker
+alias dps='docker ps'
+alias dimg='docker images'
+alias dex='docker exec -it'
+
+# Kubernetes
+alias k='kubectl'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get services'
+alias kgd='kubectl get deployments'
+alias kga='kubectl get all'
+alias kctx='kubectl ctx'
+alias kns='kubectl ns'
+alias l='eza -l'
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
+alias n='nvim'

@@ -1,0 +1,79 @@
+# === Starship 提示符配置 ===
+
+# 格式
+format = """
+$username$directory$git_branch$git_status$nodejs$python$rust$golang$docker_context$cmd_duration$line_break$character"""
+
+# 目录配置
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+format = "[$path]($style)[\\$](end)"
+style = "bold cyan"
+
+# Git 配置
+[git_branch]
+symbol = " "
+format = "on [$symbol$branch]($style) "
+style = "bold purple"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold green"
+conflicted = "⚔️"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "✨"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+# 命令执行时间
+[cmd_duration]
+min_time = 2000
+format = "took [$duration]($style) "
+style = "bold yellow"
+
+# Docker context
+[docker_context]
+format = "via [$symbol$context]($style) "
+style = "blue bold"
+
+# Node.js
+[nodejs]
+format = "via [$symbol($version)]($style) "
+style = "bold green"
+symbol = "⬢"
+
+# Python
+[python]
+format = "via [${symbol}(${version} \\($virtualenv\\))]($style) "
+style = "yellow bold"
+
+# Rust
+[rust]
+format = "via [$symbol($version)]($style) "
+style = "red bold"
+symbol = "🦀"
+
+# Golang
+[golang]
+format = "via [$symbol($version)]($style) "
+style = "cyan bold"
+symbol = "🐹"
+
+# 用户名
+[username]
+style_user = "bold red"
+style_root = "bold red"
+format = "[$user]($style) "
+show_always = false
+
+# 终端字符
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+vimcmd_symbol = "[❮](bold green)"
