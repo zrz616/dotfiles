@@ -37,3 +37,4 @@ fi
 
 # fzf 配置
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+. "$HOME/.cargo/env"

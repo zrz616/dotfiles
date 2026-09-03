@@ -80,3 +80,7 @@ mkcd() { mkdir -p "$1" && cd "$1" }
 
 # === 加载本地配置 (可选) ===
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# Added by GitButler installer
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(but completions zsh)"
