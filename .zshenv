@@ -41,7 +41,7 @@ fi
 # fzf 配置
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# fzf 主题
-[ -f ~/.dotfiles/config/fzf-dracula.sh ] && source ~/.dotfiles/config/fzf-dracula.sh
+# fzf 主题 - Tokyo Night
+[ -f ~/.dotfiles/config/fzf.toml-night.sh ] && source ~/.dotfiles/config/fzf.toml-night.sh
 
 . "$HOME/.cargo/env"
