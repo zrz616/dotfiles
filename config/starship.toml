@@ -1,28 +1,28 @@
 # ===========================================
-# Dracula Theme for Starship
+# Tokyo Night Storm Theme for Starship
 # ===========================================
 
 # 格式
 format = """
 $username$directory$git_branch$git_status$nodejs$python$rust$golang$cmd_duration$line_break$character"""
 
-# 目录配置 - Dracula cyan
+# 目录配置 - Tokyo Night cyan
 [directory]
 truncation_length = 3
 truncate_to_repo = true
 format = "[$path]($style)[\\$](end)"
-style = "bold #8be9fd"
+style = "bold #7aa2f7"
 
 # Git 分支 - Purple
 [git_branch]
 symbol = " "
 format = "[$symbol$branch]($style) "
-style = "bold #bd93f9"
+style = "bold #bb9af7"
 
 # Git 状态
 [git_status]
 format = '([\[$all_status$ahead_behind\]]($style) )'
-style = "bold #50fa7b"
+style = "bold #9ece6a"
 conflicted = "⚔️"
 ahead = "⇡${count}"
 behind = "⇣${count}"
@@ -37,7 +37,7 @@ deleted = "🗑"
 # Node.js - Green
 [nodejs]
 format = "via [$symbol($version)]($style) "
-style = "bold #50fa7b"
+style = "bold #9ece6a"
 symbol = "⬢"
 
 # Python - Yellow
@@ -45,10 +45,10 @@ symbol = "⬢"
 format = "via [${symbol}(${version} \\($virtualenv\\))]($style) "
 style = "yellow bold"
 
-# Rust - Red
+# Rust - Red/Orange
 [rust]
 format = "via [$symbol($version)]($style) "
-style = "bold #ff5555"
+style = "bold #f7768e"
 symbol = "🦀"
 
 # Golang - Cyan
@@ -61,17 +61,17 @@ symbol = "🐹"
 [cmd_duration]
 min_time = 2000
 format = "took [$duration]($style) "
-style = "bold #f1fa8c"
+style = "bold #e0af68"
 
 # 用户名
 [username]
-style_user = "bold #8be9fd"
-style_root = "bold #ff5555"
+style_user = "bold #7aa2f7"
+style_root = "bold #f7768e"
 format = "[$user]($style) "
 show_always = false
 
-# 终端字符
+# 终端字符 - Tokyo Night
 [character]
-success_symbol = "[➜](bold #50fa7b)"
-error_symbol = "[✗](bold #ff5555)"
-vimcmd_symbol = "[❮](bold #50fa7b)"
+success_symbol = "[➜](bold #9ece6a)"
+error_symbol = "[✗](bold #f7768e)"
+vimcmd_symbol = "[❮](bold #9ece6a)"
