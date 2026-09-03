@@ -26,8 +26,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --theme=Tokyo\\ Night\\ Storm --style=numbers --color=always --line-range {1..50} {}"'
 
-# bat 配置 - Tokyo Night Storm
-export BAT_THEME="Tokyo Night Storm"
+# bat 配置 - Dracula 主题
+export BAT_THEME="Dracula"
 
 # delta 配置 - Tokyo Night Storm
 export DELTA_THEME="Tokyo Night Storm"
@@ -42,6 +42,6 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # fzf 主题
-[ -f ~/.dotfiles/config/fzf-tokyo-night.sh ] && source ~/.dotfiles/config/fzf-tokyo-night.sh
+[ -f ~/.dotfiles/config/fzf-dracula.sh ] && source ~/.dotfiles/config/fzf-dracula.sh
 
 . "$HOME/.cargo/env"
