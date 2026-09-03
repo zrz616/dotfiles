@@ -1,0 +1,19 @@
+# LazyGit 配置
+
+# 使用 delta 作为分页器
+pgrep: delta
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --pager='delta --side-by-side --line-numbers'
+
+# 主题
+gui:
+  theme:
+    activeBorderColor:
+      - green
+    inactiveBorderColor:
+      - gray
+    optionsBorderColor:
+      - cyan

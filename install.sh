@@ -65,7 +65,11 @@ install_apt() {
     ncdu \
     tree \
     autojump \
-    zoxide
+    zoxide \
+    gh \
+    trash-cli \
+    btop \
+    unzip
 }
 
 # 安装 Neovim
@@ -84,6 +88,70 @@ install_starship() {
   info "安装 Starship..."
   if ! check_command starship; then
     curl -sS https://starship.rs/install.sh | sh -s -- -y
+  fi
+}
+
+# 安装 delta (git diff 增强)
+install_delta() {
+  info "安装 delta..."
+  if ! check_command delta; then
+    curl -LO https://github.com/dandavison/delta/releases/download/0.18.1/git-delta_0.18.1_amd64.deb
+    sudo dpkg -i git-delta_0.18.1_amd64.deb
+    rm git-delta_0.18.1_amd64.deb
+    
+    # 配置 git 使用 delta
+    git config --global core.pager delta
+    git config --global delta.navigate true
+    git config --global delta.side-by-side true
+    git config --global delta.line-numbers true
+    git config --global delta.plus-color "#007d35"
+    git config --global delta.minus-color "#d32f2f"
+  fi
+}
+
+# 安装 bat-extras
+install_bat_extras() {
+  info "安装 bat-extras..."
+  if ! check_command batwatch; then
+    VERSION="2024.08.24"
+    curl -sL "https://github.com/eth-p/bat-extras/releases/download/v${VERSION}/bat-extras-${VERSION}.zip" -o /tmp/bat-extras.zip
+    cd /tmp && unzip -o bat-extras.zip
+    sudo mv /tmp/bin/* /usr/local/bin/
+    rm -rf /tmp/bat-extras.zip /tmp/bin /tmp/doc /tmp/man
+  fi
+}
+
+# 安装 lazygit
+install_lazygit() {
+  info "安装 lazygit..."
+  if ! check_command lazygit; then
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -o '"tag_name": "v[^"]*' | cut -d'"' -f4)
+    curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION#v}_Linux_x86_64.tar.gz"
+    sudo tar -xzf /tmp/lazygit.tar.gz -C /usr/local/bin lazygit
+    rm /tmp/lazygit.tar.gz
+  fi
+}
+
+# 配置 lazygit
+config_lazygit() {
+  info "配置 lazygit..."
+  mkdir -p ~/.config/lazygit
+  link_file "config/lazygit.yml" ".config/lazygit/config.yml"
+}
+
+# 安装 zoxide
+install_zoxide() {
+  info "安装 zoxide..."
+  if ! check_command zoxide; then
+    curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+  fi
+}
+
+# 安装 GitHub CLI
+install_gh() {
+  info "安装 GitHub CLI..."
+  if ! check_command gh; then
+    sudo apt install -y gh
   fi
 }
 
@@ -163,6 +231,36 @@ main() {
     install_starship
   fi
   
+  read -p "是否安装 GitHub CLI? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    install_gh
+  fi
+  
+  read -p "是否安装 delta (git diff)? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    install_delta
+  fi
+  
+  read -p "是否安装 bat-extras? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    install_bat_extras
+  fi
+  
+  read -p "是否安装 lazygit? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    install_lazygit
+  fi
+  
+  read -p "是否安装 zoxide? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    install_zoxide
+  fi
+  
   read -p "是否安装 zsh 插件? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -174,8 +272,14 @@ main() {
   link_file ".zshrc"
   link_file ".zshenv"
   link_file ".aliases"
-  link_file ".config/starship.toml"
-  link_file ".config/nvim"
+  link_file "config/starship.toml"
+  link_file "config/lazygit.yml"
+  link_file "nvim"
+  
+  # 配置 lazygit
+  if [ -f "$HOME/.config/lazygit/config.yml" ]; then
+    config_lazygit
+  fi
   
   # 安装 Neovim 插件
   read -p "是否安装 Neovim 插件? (y/n) " -n 1 -r
@@ -198,6 +302,12 @@ main() {
   echo ""
   echo "请运行以下命令切换到 zsh:"
   echo "  exec zsh"
+  echo ""
+  echo "常用命令:"
+  echo "  ll      - 详细列表"
+  echo "  n       - Neovim"
+  echo "  lg      - LazyGit"
+  echo "  top     - btop"
   echo ""
 }
 
