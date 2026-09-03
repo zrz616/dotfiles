@@ -46,9 +46,26 @@ bindkey '^[[Z' undo  # Shift+Tab 撤销
 # zoxide 集成 (已在 zshenv 中通过 eval 初始化)
 
 # === fzf 集成 ===
+# 初始化 fzf
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+
+# FZF 快捷键
 # Ctrl+T - 搜索文件
 # Ctrl+R - 搜索历史
 # Alt+C  - 跳转到目录
+
+# fzf 文件预览快捷键
+alias fzp='fzf --preview "bat --color=always --style=numbers --line-range :80 {}"'
+
+# Git 相关
+alias fgb='fzf --height=40% --border --layout=reverse --prompt=" branches > " < <(git branch) | xargs git checkout'
+alias fgco='fzf --height=40% --border --layout=reverse --prompt=" checkout > " < <(git branch) | xargs git checkout'
+alias fglog='fzf --height=50% --border --layout=reverse --prompt=" log > " < <(git log --oneline --all --decorate --graph) | head -1'
+alias fgst='fzf --height=40% --border --layout=reverse --prompt=" status > " --preview="git diff {1}"'
+
+# 在文件历史中搜索
+alias fglogfile='fzf --height=40% --border --layout=reverse --prompt=" file log > " < <(git log --oneline --name-only --all --format="%h %s" | grep .) | cut -d" " -f1 | xargs git show --stat'
 
 # === 路径配置 ===
 path=(
