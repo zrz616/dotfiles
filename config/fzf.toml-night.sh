@@ -15,7 +15,14 @@ export FZF_DEFAULT_OPTS="--color=$FZF_COLORS --height=60% --layout=reverse --bor
 # Ctrl+T - 文件搜索
 # ===========================================
 export FZF_CTRL_T_COMMAND='fdfind --type f --hidden --follow --exclude .git'
-export FZF_CTRL_T_OPTS="--multi --preview='bat --color=always --style=numbers --line-range :80 {}' --preview-window=right:60%:wrap --bind='?:toggle-preview' --bind='tab:toggle+down,btab:toggle+up' --bind='ctrl-a:select-all' --prompt=Files> "
+export FZF_CTRL_T_OPTS="
+--multi
+--preview='bat --color=always --style=numbers --line-range :80 {}'
+--preview-window=right:60%:wrap
+--bind=tab:toggle+down,btab:toggle+up
+--bind=ctrl-a:select-all
+--prompt=Files> 
+"
 
 # ===========================================
 # Ctrl+R - 历史搜索
@@ -26,4 +33,8 @@ export FZF_CTRL_R_OPTS="--preview='echo {}' --preview-window=up:3:wrap"
 # Alt+C - 目录跳转
 # ===========================================
 export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
-export FZF_ALT_C_OPTS="--preview='eza --tree --level=2 --color=always {}' --preview-window=right:40%:wrap --bind='?:toggle-preview' --prompt=Dirs> "
+export FZF_ALT_C_OPTS="
+--preview='eza --tree --level=2 --color=always {}'
+--preview-window=right:40%:wrap
+--prompt=Dirs> 
+"
