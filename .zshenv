@@ -20,28 +20,16 @@ fi
 # PATH 配置
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH
 
-# fd 配置
-export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --theme=Tokyo\\ Night\\ Storm --style=numbers --color=always --line-range {1..50} {}"'
-
 # bat 配置 - Dracula 主题
 export BAT_THEME="Dracula"
 
-# delta 配置 - Tokyo Night Storm
-export DELTA_THEME="Tokyo Night Storm"
+# delta 配置 - Dracula
+export DELTA_THEME="dracula"
 
 # zoxide 配置
 if command -v zoxide &> /dev/null; then
   export _ZO_DATA_DIR=$HOME/.local/share/zoxide
   eval "$(zoxide init zsh)"
 fi
-
-# fzf 配置
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# fzf 主题 - Tokyo Night
-[ -f ~/.dotfiles/config/fzf.toml-night.sh ] && source ~/.dotfiles/config/fzf.toml-night.sh
 
 . "$HOME/.cargo/env"

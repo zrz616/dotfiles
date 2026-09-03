@@ -46,9 +46,12 @@ bindkey '^[[Z' undo  # Shift+Tab 撤销
 # zoxide 集成 (已在 zshenv 中通过 eval 初始化)
 
 # === fzf 集成 ===
-# 初始化 fzf
+# 初始化 fzf (必须在加载配置之前)
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+
+# FZF 配置 - Tokyo Night (必须在 key-bindings.zsh 之后加载)
+[ -f ~/.dotfiles/config/fzf.toml-night.sh ] && source ~/.dotfiles/config/fzf.toml-night.sh
 
 # FZF 快捷键
 # Ctrl+T - 搜索文件
