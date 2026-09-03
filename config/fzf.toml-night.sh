@@ -19,12 +19,13 @@ export FZF_DEFAULT_OPTS=" \
   --bind=ctrl-a:select-all,ctrl-d:deselect-all \
   --bind=ctrl-t:toggle-all \
   --bind=alt-up:preview-up,alt-down:preview-down \
-  --bind=ctrl-y:execute-silent(echo -n {+} | xclip -i -sel clip) \
   --bind=ctrl-v:execute-silent(echo {+} | xargs -o nvim) \
   --bind=ctrl-e:execute(echo {+} | xargs -o \$EDITOR) \
   --bind=alt-a:select-all \
   --bind=alt-d:deselect-all \
   --bind='?:toggle-preview' \
+  --bind='tab:toggle+down' \
+  --bind='shift-tab:toggle+up' \
 "
 
 # 文件搜索
