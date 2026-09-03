@@ -24,12 +24,15 @@ export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --style=numbers --color=always --line-range {1..50} {}"'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --theme=Tokyo\\ Night\\ Storm --style=numbers --color=always --line-range {1..50} {}"'
 
-# bat 配置
-export BAT_THEME="OneHalfDark"
+# bat 配置 - Tokyo Night Storm
+export BAT_THEME="Tokyo Night Storm"
 
-# zoxide 配置 - 简单方式
+# delta 配置 - Tokyo Night Storm
+export DELTA_THEME="Tokyo Night Storm"
+
+# zoxide 配置
 if command -v zoxide &> /dev/null; then
   export _ZO_DATA_DIR=$HOME/.local/share/zoxide
   eval "$(zoxide init zsh)"
@@ -37,4 +40,8 @@ fi
 
 # fzf 配置
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# fzf 主题
+[ -f ~/.dotfiles/config/fzf-tokyo-night.sh ] && source ~/.dotfiles/config/fzf-tokyo-night.sh
+
 . "$HOME/.cargo/env"

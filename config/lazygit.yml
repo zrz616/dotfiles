@@ -1,4 +1,4 @@
-# LazyGit 配置
+# LazyGit Tokyo Night 配置
 
 # 使用 delta 作为分页器
 pgrep: delta
@@ -8,12 +8,44 @@ git:
     colorArg: always
     pager: delta --pager='delta --side-by-side --line-numbers'
 
-# 主题
+# 主题 - Tokyo Night Storm
 gui:
   theme:
+    # 颜色定义
     activeBorderColor:
       - green
     inactiveBorderColor:
       - gray
     optionsBorderColor:
       - cyan
+    
+    # Tokyo Night Storm 配色
+    selectedLineBgColor:
+      - blue
+    selectedRangeBgColor:
+      - blue
+    
+    # 颜色值 (Tokyo Night)
+    red: "#f7768e"
+    green: "#9ece6a"
+    yellow: "#e0af68"
+    blue: "#7aa2f7"
+    purple: "#bb9af7"
+    cyan: "#7dcfff"
+    white: "#c0caf5"
+    gray: "#565f89"
+    black: "#1a1b26"
+    
+    blackBright: "#24283b"
+    redBright: "#ff7b72"
+    greenBright: "#9ece6a"
+    yellowBright: "#e0af68"
+    blueBright: "#7aa2f7"
+    purpleBright: "#bb9af7"
+    cyanBright: "#7dcfff"
+    whiteBright: "#c0caf5"
+
+  # 大小配置
+  window:
+    borderStyle: rounded
+    screenSplitMode: ssh

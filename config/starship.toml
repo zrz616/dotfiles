@@ -1,25 +1,28 @@
-# === Starship 提示符配置 ===
+# ===========================================
+# Tokyo Night Storm Theme for Starship
+# ===========================================
 
 # 格式
 format = """
-$username$directory$git_branch$git_status$nodejs$python$rust$golang$docker_context$cmd_duration$line_break$character"""
+$username$directory$git_branch$git_status$nodejs$python$rust$golang$cmd_duration$line_break$character"""
 
-# 目录配置
+# 目录配置 - Tokyo Night cyan
 [directory]
 truncation_length = 3
 truncate_to_repo = true
 format = "[$path]($style)[\\$](end)"
-style = "bold cyan"
+style = "bold #7aa2f7"
 
-# Git 配置
+# Git 分支 - Purple
 [git_branch]
 symbol = " "
-format = "on [$symbol$branch]($style) "
-style = "bold purple"
+format = "[$symbol$branch]($style) "
+style = "bold #bb9af7"
 
+# Git 状态
 [git_status]
 format = '([\[$all_status$ahead_behind\]]($style) )'
-style = "bold green"
+style = "bold #9ece6a"
 conflicted = "⚔️"
 ahead = "⇡${count}"
 behind = "⇣${count}"
@@ -31,49 +34,44 @@ staged = '[++\($count\)](green)'
 renamed = "👅"
 deleted = "🗑"
 
-# 命令执行时间
-[cmd_duration]
-min_time = 2000
-format = "took [$duration]($style) "
-style = "bold yellow"
-
-# Docker context
-[docker_context]
-format = "via [$symbol$context]($style) "
-style = "blue bold"
-
-# Node.js
+# Node.js - Green
 [nodejs]
 format = "via [$symbol($version)]($style) "
-style = "bold green"
+style = "bold #9ece6a"
 symbol = "⬢"
 
-# Python
+# Python - Yellow
 [python]
 format = "via [${symbol}(${version} \\($virtualenv\\))]($style) "
 style = "yellow bold"
 
-# Rust
+# Rust - Red/Orange
 [rust]
 format = "via [$symbol($version)]($style) "
-style = "red bold"
+style = "bold #f7768e"
 symbol = "🦀"
 
-# Golang
+# Golang - Cyan
 [golang]
 format = "via [$symbol($version)]($style) "
 style = "cyan bold"
 symbol = "🐹"
 
-# 用户名
+# 命令执行时间
+[cmd_duration]
+min_time = 2000
+format = "took [$duration]($style) "
+style = "bold #e0af68"
+
+# 用户名 - 如果不是 root 则显示
 [username]
-style_user = "bold red"
-style_root = "bold red"
+style_user = "bold #7aa2f7"
+style_root = "bold #f7768e"
 format = "[$user]($style) "
 show_always = false
 
-# 终端字符
+# 终端字符 - Tokyo Night cyan/green
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
-vimcmd_symbol = "[❮](bold green)"
+success_symbol = "[➜](bold #9ece6a)"
+error_symbol = "[✗](bold #f7768e)"
+vimcmd_symbol = "[❮](bold #9ece6a)"
