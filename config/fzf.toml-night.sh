@@ -1,10 +1,12 @@
 # ===========================================
 # FZF 配置 - Tokyo Night
-# 此文件需要在 key-bindings.zsh 之后 source
 # ===========================================
 
-# 颜色配置 - 单行
+# 颜色配置
 FZF_COLORS='fg:#cbccc6,bg:#1f2430,hl:#ffcc66,fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66,info:#73d0ff,prompt:#707a8c,pointer:#cbccc6,marker:#e0e1dc,spinner:#73d0ff,header:#d4bfff,border:#4a5064,gutter:#191e2a'
+
+# 默认选项
+export FZF_DEFAULT_OPTS="--color=${FZF_COLORS} --height=60% --layout=reverse --border=rounded"
 
 # Ctrl+T - 文件搜索
 export FZF_CTRL_T_COMMAND='fdfind --type f --hidden --follow --exclude .git'
