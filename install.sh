@@ -72,6 +72,18 @@ install_apt() {
     unzip
 }
 
+# 配置 fzf 路径
+setup_fzf() {
+  info "配置 fzf..."
+  if [ -d /usr/share/doc/fzf/examples ] && [ ! -d /usr/share/fzf ]; then
+    sudo mkdir -p /usr/share/fzf
+    sudo cp /usr/share/doc/fzf/examples/*.zsh /usr/share/fzf/
+    sudo cp /usr/share/doc/fzf/examples/*.bash /usr/share/fzf/
+    sudo cp /usr/share/doc/fzf/examples/*.fish /usr/share/fzf/
+    info "fzf 配置已复制到 /usr/share/fzf/"
+  fi
+}
+
 # 安装 Neovim
 install_neovim() {
   info "安装 Neovim..."
@@ -216,9 +228,10 @@ main() {
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       install_apt
+      setup_fzf
     fi
   fi
-  
+
   read -p "是否安装 Neovim? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then

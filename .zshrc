@@ -47,8 +47,8 @@ bindkey '^[[Z' undo  # Shift+Tab 撤销
 
 # === fzf 集成 ===
 # 初始化 fzf
-[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 # FZF 配置 - Tokyo Night
 [ -f ~/.dotfiles/config/fzf.toml-night.sh ] && source ~/.dotfiles/config/fzf.toml-night.sh
