@@ -33,3 +33,4 @@ if command -v zoxide &> /dev/null; then
 fi
 
 . "$HOME/.cargo/env"
+export PATH="$HOME/.dotfiles/bin:$PATH"

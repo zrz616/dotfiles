@@ -10,9 +10,12 @@
 ├── .zshenv             # 环境变量
 ├── .aliases            # 命令别名
 ├── install.sh          # 安装脚本
+├── bin/                # 自定义脚本
+│   └── ipinfo          # IP 信息查询工具
 ├── config/
 │   ├── starship.toml   # Starship 提示符
-│   └── lazygit.yml     # LazyGit 配置
+│   ├── lazygit.yml     # LazyGit 配置
+│   └── fzf.toml-night.sh  # FZF 配置
 └── nvim/
     └── ...             # Neovim + LazyVim 配置
 ```
@@ -40,6 +43,9 @@ ln -sf ~/.dotfiles/config/starship.toml ~/.config/starship.toml
 ln -sf ~/.dotfiles/config/lazygit.yml ~/.config/lazygit/config.yml
 ln -sf ~/.dotfiles/nvim ~/.config/nvim
 
+# 添加 bin 到 PATH
+echo 'export PATH="$HOME/.dotfiles/bin:$PATH"' >> ~/.zshenv
+
 # 安装 Neovim 插件
 nvim --headless +"Lazy sync" +q
 
@@ -65,6 +71,7 @@ chsh -s $(which zsh)
 | **zoxide** | 智能目录跳转 |
 | **Neovim** | 编辑器 (LazyVim) |
 | **GitHub CLI** | gh 命令行工具 |
+| **ipinfo** | IP 信息查询工具 |
 
 ## 常用命令
 
@@ -101,8 +108,27 @@ batgrep "pat"   # 搜索并高亮
 batwatch file   # 监控文件变化
 ```
 
-## GitHub CLI 认证
+### IP 查询
+```bash
+ipinfo              # 查看本机 IP
+ipinfo 8.8.8.8     # 查看指定 IP
+ipinfo google.com   # 查看域名 IP
+```
 
+## 配置文件
+
+### IPinfo Token (可选)
+```bash
+# 创建配置目录
+mkdir -p ~/.ipinfo
+
+# 填入你的 API token
+echo "your_api_token" > ~/.ipinfo/token
+```
+- 无 token：使用免费 API (每日 50,000 次)
+- 有 token：使用 IPinfo Lite API (每月 500,000 次)
+
+### GitHub CLI
 ```bash
 gh auth login
 ```
