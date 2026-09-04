@@ -23,12 +23,12 @@ export FZF_DEFAULT_OPTS="
 "
 
 # Ctrl+T - 文件搜索
-export FZF_CTRL_T_COMMAND='fdfind --type f --hidden --follow --exclude .git'
-export FZF_CTRL_T_OPTS="--preview='bat --color=always --style=numbers --line-range :80 {}'"
+#export FZF_CTRL_T_COMMAND='fdfind --type f --hidden --follow --exclude .git'
+#export FZF_CTRL_T_OPTS="--preview='bat --color=always --style=numbers --line-range :80 {}'"
 
 # Ctrl+R - 历史搜索
-export FZF_CTRL_R_OPTS="--preview='echo {}' --preview-window=up:3:wrap"
+# export FZF_CTRL_R_OPTS="--preview='echo {}' --preview-window=up:3:wrap"
 
 # Alt+C - 目录跳转
-export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
-export FZF_ALT_C_OPTS="--preview='eza --tree --level=2 --color=always {}'"
+#export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
+#export FZF_ALT_C_OPTS="--preview='eza --tree --level=2 --color=always {}'"
