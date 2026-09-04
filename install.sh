@@ -69,7 +69,8 @@ install_apt() {
     gh \
     trash-cli \
     btop \
-    unzip
+    unzip \
+    yq
 }
 
 # 配置 fzf 路径
