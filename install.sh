@@ -69,8 +69,16 @@ install_apt() {
     gh \
     trash-cli \
     btop \
-    unzip \
-    yq
+    unzip
+
+# 安装 yq (prettybat 依赖)
+install_yq() {
+  info "安装 yq..."
+  if ! command -v yq &> /dev/null || [[ $(yq --version | grep -oP 'v\K[0-9]+') -lt 4 ]]; then
+    sudo wget -q https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64 -O /usr/local/bin/yq
+    sudo chmod +x /usr/local/bin/yq
+  fi
+}
 }
 
 # 配置 fzf 路径
@@ -261,8 +269,9 @@ main() {
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     install_bat_extras
+    install_yq
   fi
-  
+
   read -p "是否安装 lazygit? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then
