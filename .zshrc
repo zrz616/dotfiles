@@ -7,6 +7,9 @@
 # 加载别名
 [ -f ~/.aliases ] && source ~/.aliases
 
+# 加载目录操作配置
+[ -f ~/.zshdirs ] && source ~/.zshdirs
+
 # === 历史记录配置 ===
 HISTSIZE=10000
 SAVEHIST=10000
