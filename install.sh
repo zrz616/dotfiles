@@ -168,6 +168,20 @@ install_zoxide() {
   fi
 }
 
+# 安装 cargo 工具
+install_cargo_tools() {
+  info "安装 cargo 工具..."
+  if ! check_command cargo; then
+    warn "cargo 未安装，跳过 cargo 工具安装"
+    return
+  fi
+  
+  # 安装 serie (changelog 生成工具)
+  if ! check_command serie; then
+    cargo install --locked serie
+  fi
+}
+
 # 安装 GitHub CLI
 install_gh() {
   info "安装 GitHub CLI..."
@@ -258,7 +272,13 @@ main() {
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     install_gh
   fi
-  
+
+  read -p "是否安装 cargo 工具? (y/n) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    install_cargo_tools
+  fi
+
   read -p "是否安装 delta (git diff)? (y/n) " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]; then

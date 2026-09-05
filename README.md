@@ -72,6 +72,7 @@ chsh -s $(which zsh)
 | **Neovim** | 编辑器 (LazyVim) |
 | **GitHub CLI** | gh 命令行工具 |
 | **ipinfo** | IP 信息查询工具 |
+| **serie** | Changelog 生成工具 (cargo) |
 
 ## 常用命令
 
