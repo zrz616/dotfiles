@@ -7,7 +7,7 @@ return {
     opts = {
       servers = {
         -- TypeScript/JavaScript
-        tsserver = {},
+        ts_ls = {},
         -- JSON
         jsonls = {},
         -- CSS/SCSS

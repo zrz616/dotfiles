@@ -1,13 +1,14 @@
-# === ZSH 配置 ===
-# 由系统配置脚本生成
+# === ZSH 配置 (Arch Linux) ===
 
 # 加载环境变量
 [ -f ~/.zshenv ] && source ~/.zshenv
 
-# 加载别名
-[ -f ~/.aliases ] && source ~/.aliases
+# 补全必须先初始化：.zshdirs 里用到了 compdef
+autoload -Uz compinit
+compinit -C
 
-# 加载目录操作配置
+# 加载别名与目录配置
+[ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.zshdirs ] && source ~/.zshdirs
 
 # === 历史记录配置 ===
@@ -20,46 +21,53 @@ setopt HIST_IGNORE_SPACE       # 忽略以空格开头的命令
 setopt HIST_REDUCE_BLANKS      # 压缩连续空格
 
 # === 自动补全 ===
-autoload -Uz compinit
-compinit -C  # 使用缓存加速
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # 大小写不敏感
-zstyle ':completion:*' list-colors "${LS_COLORS}"  # 彩色自动补全
-
-# === 补全大小写不敏感 ===
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' completers _all_matches _match _approximate
 zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
 
-# === 插件 ===
-ZSH_PLUGINS="$HOME/.zsh/plugins"
-# 加载 autosuggestions (命令建议)
-[ -f $ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"  # 高亮样式
+# === 插件（优先使用 Arch 软件包，回退到 ~/.zsh/plugins） ===
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
-# 加载 syntax highlighting (语法高亮)
-[ -f $ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source $ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+for _f in \
+  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"; do
+  [[ -f "$_f" ]] && source "$_f" && break
+done
+
+for _f in \
+  /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh \
+  "$HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"; do
+  [[ -f "$_f" ]] && source "$_f" && break
+done
+
+# 语法高亮必须最后加载
+for _f in \
+  /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"; do
+  [[ -f "$_f" ]] && source "$_f" && break
+done
+unset _f
 
 # === 键绑定 ===
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+(( $+widgets[history-substring-search-up] )) && bindkey '^[[A' history-substring-search-up
+(( $+widgets[history-substring-search-down] )) && bindkey '^[[B' history-substring-search-down
 bindkey '^R' history-incremental-search-backward  # Ctrl+R 搜索历史
-bindkey '^[[Z' undo  # Shift+Tab 撤销
-
-# === 自动跳转 ===
-# zoxide 集成 (已在 zshenv 中通过 eval 初始化)
+bindkey '^[[Z' undo                               # Shift+Tab 撤销
 
 # === fzf 集成 ===
-# 初始化 fzf
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+for _f in /usr/share/fzf/key-bindings.zsh "$HOME/.fzf/shell/key-bindings.zsh"; do
+  [[ -f "$_f" ]] && source "$_f" && break
+done
+for _f in /usr/share/fzf/completion.zsh "$HOME/.fzf/shell/completion.zsh"; do
+  [[ -f "$_f" ]] && source "$_f" && break
+done
+unset _f
 
 # FZF 配置 - Tokyo Night
-[ -f ~/.dotfiles/config/fzf.toml-night.sh ] && source ~/.dotfiles/config/fzf.toml-night.sh
-
-# FZF 快捷键
-# Ctrl+T - 搜索文件
-# Ctrl+R - 搜索历史
-# Alt+C  - 跳转到目录
+[[ -f "$HOME/.dotfiles/config/fzf.toml-night.sh" ]] && source "$HOME/.dotfiles/config/fzf.toml-night.sh"
 
 # fzf 文件预览快捷键
 alias fzp='fzf --preview "bat --color=always --style=numbers --line-range :80 {}"'
@@ -73,37 +81,20 @@ alias fgst='fzf --height=40% --border --layout=reverse --prompt=" status > " --p
 # 在文件历史中搜索
 alias fglogfile='fzf --height=40% --border --layout=reverse --prompt=" file log > " < <(git log --oneline --name-only --all --format="%h %s" | grep .) | cut -d" " -f1 | xargs git show --stat'
 
-# === 路径配置 ===
-path=(
-  $HOME/.local/bin
-  $HOME/.cargo/bin
-  /usr/local/bin
-  $path
-)
-
 # === 提示符配置 ===
-# starship 跨平台提示符
-if command -v starship &> /dev/null; then
+if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 else
-  # 内置简洁提示符
   PS1='%F{green}%n@%m%f:%F{blue}%~%f\$ '
   RPROMPT='%(?.%F{green}✓.%F{red}✗)%f'
 fi
 
 # === 杂项配置 ===
-# 自动 ls 在 cd 后
+# cd 后自动列表
 chpwd() { ls }
-
-# 自动更新 PATH 中的重复项
-typeset -U path
 
 # 创建目录后自动进入
 mkcd() { mkdir -p "$1" && cd "$1" }
 
 # === 加载本地配置 (可选) ===
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-# Added by GitButler installer
-export PATH="$HOME/.local/bin:$PATH"
-eval "$(but completions zsh)"

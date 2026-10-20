@@ -10,6 +10,7 @@ vim.opt.swapfile = false -- 不创建 swap 文件
 vim.opt.backup = false -- 不创建备份
 vim.opt.writebackup = false
 vim.opt.undofile = true -- 持久化撤销
+vim.fn.mkdir(vim.fn.stdpath("data") .. "/undo", "p")
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 
 -- 行号和相对行号
@@ -41,6 +42,9 @@ vim.opt.splitbelow = true
 
 -- 主题
 vim.opt.termguicolors = true
+
+-- 已安装 Nerd Font Symbols
+vim.g.have_nerd_font = true
 
 -- 禁用某些内置插件
 vim.g.loaded_netrw = 1

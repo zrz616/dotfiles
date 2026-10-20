@@ -36,7 +36,8 @@ map("n", "N", function()
 end, { desc = "上一个搜索结果" })
 
 -- ============ 格式化 ============
-map("n", "<leader>ff", function()
+-- LazyVim 默认使用 <leader>cf，避免覆盖下面的文件搜索
+map("n", "<leader>cf", function()
   require("conform").format({ async = true })
 end, { desc = "格式化" })
 

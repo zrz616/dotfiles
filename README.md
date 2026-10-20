@@ -1,6 +1,6 @@
-# Dotfiles
+# Dotfiles (Arch Linux)
 
-我的系统配置文件。
+zsh、Neovim (LazyVim)、starship 和一组现代 CLI 工具的个人配置，已适配 Arch Linux。
 
 ## 目录结构
 
@@ -9,148 +9,82 @@
 ├── .zshrc              # Zsh 配置
 ├── .zshenv             # 环境变量
 ├── .aliases            # 命令别名
-├── install.sh          # 安装脚本
-├── bin/                # 自定义脚本
+├── .zshdirs            # 目录栈快捷操作
+├── install.sh          # Arch Linux 安装脚本
+├── bin/
 │   └── ipinfo          # IP 信息查询工具
 ├── config/
-│   ├── starship.toml   # Starship 提示符
-│   ├── lazygit.yml     # LazyGit 配置
-│   └── fzf.toml-night.sh  # FZF 配置
+│   ├── starship.toml
+│   ├── lazygit.yml
+│   └── fzf.toml-night.sh
 └── nvim/
-    └── ...             # Neovim + LazyVim 配置
+    └── nvim/           # Neovim + LazyVim 配置
 ```
 
 ## 安装
 
-### 自动安装 (推荐)
-
 ```bash
-# 克隆仓库
 git clone https://github.com/zrz616/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 
-# 运行安装脚本
-~/.dotfiles/install.sh
+# 为当前用户安装（会安装官方仓库依赖、链接配置、同步 LazyVim、切换 zsh）
+./install.sh
+
+# 或指定用户（需要 root）
+sudo ./install.sh --user hbird
+
+# 只链接配置，不装包 / 不装插件
+./install.sh --no-packages --no-nvim
 ```
 
-### 手动安装
+脚本只使用 Arch 官方仓库（`core` / `extra`），不使用 AUR。
 
-```bash
-# 创建符号链接
-ln -sf ~/.dotfiles/.zshrc ~/.zshrc
-ln -sf ~/.dotfiles/.zshenv ~/.zshenv
-ln -sf ~/.dotfiles/.aliases ~/.aliases
-ln -sf ~/.dotfiles/config/starship.toml ~/.config/starship.toml
-ln -sf ~/.dotfiles/config/lazygit.yml ~/.config/lazygit/config.yml
-ln -sf ~/.dotfiles/nvim ~/.config/nvim
+## 依赖（pacman）
 
-# 添加 bin 到 PATH
-echo 'export PATH="$HOME/.dotfiles/bin:$PATH"' >> ~/.zshenv
-
-# 安装 Neovim 插件
-nvim --headless +"Lazy sync" +q
-
-# 设置 zsh 为默认 shell
-chsh -s $(which zsh)
+```
+zsh git curl wget
+eza bat ripgrep fd fzf btop ncdu tree
+zoxide github-cli trash-cli
+neovim starship git-delta lazygit bat-extras go-yq
+zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search
+wl-clipboard ttf-nerd-fonts-symbols
+base-devel
 ```
 
-## 安装的工具有
+Neovim 的 LSP 由 Mason 管理；`base-devel`、Node.js/npm 用于 treesitter 与部分语言服务器。
 
-| 工具 | 说明 |
-|------|------|
-| **zsh** | 现代化 shell |
-| **starship** | 跨平台提示符 |
-| **eza** | ls 替代，带图标和 git 状态 |
-| **bat** | cat 替代，语法高亮 |
-| **ripgrep** | grep 替代，更快 |
-| **fd** | find 替代，更快 |
-| **btop** | top 替代，现代 UI |
-| **delta** | git diff 增强，语法高亮 |
-| **bat-extras** | bat 增强工具集 |
-| **lazygit** | Git 终端 UI |
-| **fzf** | 模糊搜索 |
-| **zoxide** | 智能目录跳转 |
-| **Neovim** | 编辑器 (LazyVim) |
-| **GitHub CLI** | gh 命令行工具 |
-| **ipinfo** | IP 信息查询工具 |
-| **serie** | Changelog 生成工具 (cargo) |
+## 配置链接
+
+| 源 | 目标 |
+|---|---|
+| `.zshrc` / `.zshenv` / `.aliases` / `.zshdirs` | `~/` |
+| `config/starship.toml` | `~/.config/starship.toml` |
+| `config/lazygit.yml` | `~/.config/lazygit/config.yml` |
+| `nvim/nvim` | `~/.config/nvim` |
 
 ## 常用命令
 
-### Shell
 ```bash
-ll              # 详细列表 (eza -l)
-lt              # 树形结构
-la              # 显示隐藏文件
-fd <pattern>    # 搜索文件
-z <dir>         # 快速跳转 (zoxide)
+ll / lt / la        # eza
+fd <pattern>        # fd（Arch 没有 fdfind）
+rg <pattern>        # ripgrep
+z <dir>             # zoxide
+lg                  # lazygit
+n / vim             # nvim
+bat <file>          # 语法高亮
+delta               # git diff 分页器
+ipinfo [IP|域名]    # IP 查询
 ```
 
-### Git
-```bash
-lg              # LazyGit
-git diff        # 使用 delta
-gl              # git pull
-gp              # git push
-```
+## 说明
 
-### Neovim
-```bash
-n               # 启动 Neovim
-<leader>ff      # 搜索文件
-<leader>fg      # 全局搜索
-<leader>gg      # LazyGit
-gcc             # 切换注释
-```
+- `rm` 被别名到 `trash`（`trash-cli`），删除进入回收站。
+- `update` = `sudo pacman -Syu`，`cleanup` = `sudo pacman -Sc`。
+- `ip` 被别名到 `ipinfo`；需要原生 `ip` 时使用 `command ip`。
+- 图标依赖 `ttf-nerd-fonts-symbols`；终端字体不支持时会显示占位符，可去掉 eza 的 `--icons`。
+- IPinfo token（可选）：
 
-### bat-extras
 ```bash
-batdiff         # git diff with bat
-batgrep "pat"   # 搜索并高亮
-batwatch file   # 监控文件变化
-```
-
-### IP 查询
-```bash
-ipinfo              # 查看本机 IP
-ipinfo 8.8.8.8     # 查看指定 IP
-ipinfo google.com   # 查看域名 IP
-```
-
-## 配置文件
-
-### IPinfo Token (可选)
-```bash
-# 创建配置目录
 mkdir -p ~/.ipinfo
-
-# 填入你的 API token
 echo "your_api_token" > ~/.ipinfo/token
 ```
-- 无 token：使用免费 API (每日 50,000 次)
-- 有 token：使用 IPinfo Lite API (每月 500,000 次)
-
-### GitHub CLI
-```bash
-gh auth login
-```
-
-## Neovim 快捷键
-
-| 快捷键 | 功能 |
-|--------|------|
-| `gcc` | 切换行注释 |
-| `gbc` | 切换块注释 |
-| `sa` | 添加环绕 |
-| `sd` | 删除环绕 |
-| `sc` | 修改环绕 |
-| `s/S` | 快速跳转 (flash.nvim) |
-| `<leader>ff` | 搜索文件 |
-| `<leader>fg` | 全局搜索 |
-| `<leader>fb` | 搜索缓冲区 |
-| `<leader>gg` | LazyGit |
-| `gd` | 跳转到定义 |
-| `K` | 查看文档 |
-| `<leader>ca` | 代码操作 |
-| `<leader>rn` | 重命名 |
-| `<C-h/j/k/l>` | 窗口导航 |
-| `<leader>te` | 终端 |
