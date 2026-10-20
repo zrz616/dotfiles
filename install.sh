@@ -55,6 +55,9 @@ fi
 HOME_DIR="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
 TARGET_GROUP="$(id -gn "$TARGET_USER")"
 
+# 清理 macOS 归档带来的 AppleDouble 文件（lazy.nvim 会把 ._*.lua 当成插件 spec）
+find "$DOTFILES_DIR" \( -name '._*' -o -name '.DS_Store' \) -delete 2>/dev/null || true
+
 run_as_user() {
   if [[ $EUID -eq 0 && "$TARGET_USER" != "root" ]]; then
     runuser -u "$TARGET_USER" -- env HOME="$HOME_DIR" "$@"
