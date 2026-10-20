@@ -92,8 +92,9 @@ map("n", "<leader>2", "2gt", { desc = "标签页 2" })
 map("n", "<leader>3", "3gt", { desc = "标签页 3" })
 
 -- ============ Git ============
+-- 直接使用已安装的 lazygit 二进制，避免额外插件依赖
 map("n", "<leader>gg", function()
-  require("lazygit").toggle()
+  vim.cmd("terminal lazygit")
 end, { desc = "LazyGit" })
 
 -- ============ 终端 ============
