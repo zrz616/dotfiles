@@ -101,6 +101,12 @@ end, { desc = "LazyGit" })
 map("n", "<leader>te", "<cmd>terminal<cr>", { desc = "终端" })
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "退出终端模式" })
 
+-- Ctrl+C 进入 Normal 模式
+-- 插入模式映射为 Esc，确保触发 InsertLeave；终端模式退出到 Normal。
+-- 注意：终端模式下这会覆盖向终端作业发送 SIGINT 的默认行为。
+map("i", "<C-c>", "<Esc>", { desc = "退出插入模式" })
+map("t", "<C-c>", "<C-\\><C-n>", { desc = "退出终端模式" })
+
 -- ============ 文本对象 (mini.ai) ============
 -- 在 visual 模式下使用 a"/i" 等
 map("o", "a\"", "<cmd>normal! T\"Et\"<cr>", { desc = "参数 (双引号)" })
