@@ -113,6 +113,21 @@ map("i", "<Esc>", function()
   vim.cmd("stopinsert")
 end, { desc = "退出插入模式" })
 
+-- 某些文件 buffer 会被插件设置 buffer-local 的 Esc 映射，优先级高于全局映射。
+-- 每次进入 Insert 后重新写入 buffer-local Esc，确保文件 buffer 也能退出。
+vim.api.nvim_create_autocmd("InsertEnter", {
+  callback = function(args)
+    vim.schedule(function()
+      if vim.api.nvim_buf_is_valid(args.buf) then
+        vim.keymap.set("i", "<Esc>", function()
+          vim.cmd("nohlsearch")
+          vim.cmd("stopinsert")
+        end, { buffer = args.buf, desc = "退出插入模式" })
+      end
+    end)
+  end,
+})
+
 -- ============ 文本对象 (mini.ai) ============
 -- 在 visual 模式下使用 a"/i" 等
 map("o", "a\"", "<cmd>normal! T\"Et\"<cr>", { desc = "参数 (双引号)" })
