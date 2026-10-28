@@ -107,6 +107,12 @@ map("t", "<Esc>", "<C-\\><C-n>", { desc = "退出终端模式" })
 map("i", "<C-c>", "<Esc>", { desc = "退出插入模式" })
 map("t", "<C-c>", "<C-\\><C-n>", { desc = "退出终端模式" })
 
+-- 强制 Esc 退出插入模式，避免补全/插件拦截导致按 Esc 无反应
+map("i", "<Esc>", function()
+  vim.cmd("nohlsearch")
+  vim.cmd("stopinsert")
+end, { desc = "退出插入模式" })
+
 -- ============ 文本对象 (mini.ai) ============
 -- 在 visual 模式下使用 a"/i" 等
 map("o", "a\"", "<cmd>normal! T\"Et\"<cr>", { desc = "参数 (双引号)" })
