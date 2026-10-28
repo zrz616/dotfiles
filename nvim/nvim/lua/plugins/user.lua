@@ -115,7 +115,7 @@ return {
 
   -- mini.nvim 系列 (包含所有 mini 模块)
   {
-    "echasnovski/mini.nvim",
+    "nvim-mini/mini.nvim",
     event = "VeryLazy",
     config = function()
       -- mini.comment - 注释
