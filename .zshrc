@@ -52,6 +52,12 @@ done
 unset _f
 
 # === 键绑定 ===
+bindkey -v                                        # 使用 vi 模式
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M viins '^v' edit-command-line           # Ctrl+V 编辑当前命令
+
 (( $+widgets[history-substring-search-up] )) && bindkey '^[[A' history-substring-search-up
 (( $+widgets[history-substring-search-down] )) && bindkey '^[[B' history-substring-search-down
 bindkey '^R' history-incremental-search-backward  # Ctrl+R 搜索历史
